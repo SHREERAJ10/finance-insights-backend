@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import userRoute from './routes/userRoute.js';
+import incomeRoute from './routes/incomeRoute.js';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/user',userRoute);
+app.use('/income', incomeRoute);
 
 app.listen(port, ()=>{
     console.log(`Server listening on port ${port}`);
