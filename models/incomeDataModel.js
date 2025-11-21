@@ -5,4 +5,9 @@ const incomeDataSchema = z.object({
     incomeSourceId: z.string().trim()
 });
 
+export const incomeSourceSchema = z.object({
+    incomeSource: z.string().trim(),
+    isFixed: z.boolean()
+});
+
 export default incomeDataSchema;
