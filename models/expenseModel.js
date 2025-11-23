@@ -5,3 +5,8 @@ export const expenseDataSchema = z.object({
     expenseDescription: z.string().trim(),
     expenseCategoryId: z.string().trim()
 });
+
+export const expenseCategorySchema = z.object({
+    expenseCategory: z.string().trim(),
+    isFixed: z.boolean()
+})
