@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import userRoute from './routes/userRoute.js';
 import incomeRoute from './routes/incomeRoute.js';
 import expenseRoute from './routes/expenseRoute.js';
+import savingRoute from './routes/savingRoute.js';
 
 dotenv.config();
 
@@ -15,7 +16,8 @@ app.use(cookieParser());
 
 app.use('/user',userRoute);
 app.use('/income', incomeRoute);
-app.use('/expense', expenseRoute)
+app.use('/expense', expenseRoute);
+app.use('/saving',savingRoute);
 
 app.listen(port, ()=>{
     console.log(`Server listening on port ${port}`);
