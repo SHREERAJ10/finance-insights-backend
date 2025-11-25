@@ -1,10 +1,10 @@
 import express from 'express';
 import verifyToken from '../middleware/verifyToken.js';
-import addIncomeDataController from '../controller/addIncomeDataController.js';
-import addIncomeSourceController from '../controller/addIncomeSourceController.js';
-import updateIncomeDataController from '../controller/updateIncomeDataController.js';
-import updateIncomeSourceController from '../controller/updateIncomeSourceController.js';
-import deleteIncomeDataController from '../controller/deleteIncomeDataController.js';
+import addIncomeDataController from '../controller/incomeController/addIncomeDataController.js';
+import addIncomeSourceController from '../controller/incomeController/addIncomeSourceController.js';
+import updateIncomeDataController from '../controller/incomeController/updateIncomeDataController.js';
+import updateIncomeSourceController from '../controller/incomeController/updateIncomeSourceController.js';
+import deleteIncomeDataController from '../controller/incomeController/deleteIncomeDataController.js';
 
 const incomeRoute = express.Router();
 
