@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model User{
+  id String @id
+  username String
+  incomeData Income_Data[]
+  incomeSource Income_Source[]
+  expenseData Expense_Data[]
+  expenseCategory Expense_Category[]
+  savingGoal Saving_Goal[]
+}
+
+model Income_Data{
+  incomeId String @id @default(uuid())
+  userId String 
+  incomeAmount Int
+  incomeSourceId String
+  createdAt DateTime
+  updatedAt DateTime?
+  users User @relation(fields:[userId], references:[id])
+  incomeSource Income_Source @relation(fields:[incomeSourceId], references:[id])
+}
+
+model Income_Source{
+  id String @id @default(uuid())
+  userId String
+  incomeSource String
+  isFixed Boolean 
+  incomeData Income_Data[]
+  user User @relation(fields:[userId],references:[id])
+}
+
+model Saving_Goal{
+  savingGoalId String @id @default(uuid())
+  savingGoalAmount Int
+  createdAt DateTime
+  updatedAt DateTime?
+  userId String
+  users User @relation(fields:[userId],references:[id])
+  @@unique(name:"userMonthId", [userId, createdAt])
+}
+
+model Expense_Data{
+  expenseId String @id @default(uuid())
+  userId String 
+  expenseAmount Int
+  expenseCategoryId String
+  expenseDescription String @db.VarChar(100)
+  createdAt DateTime
+  updatedAt DateTime?
+  users User @relation(fields:[userId], references:[id])
+  expenseCategory Expense_Category @relation(fields:[expenseCategoryId], references:[id]) 
+}
+
+model Expense_Category{
+  id String @id @default(uuid())
+  userId String
+  expenseCategory String
+  isFixed Boolean 
+  expenseData Expense_Data[]
+  user User @relation(fields:[userId],references:[id])
+}
