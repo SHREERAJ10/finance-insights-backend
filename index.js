@@ -5,6 +5,7 @@ import userRoute from './routes/userRoute.js';
 import incomeRoute from './routes/incomeRoute.js';
 import expenseRoute from './routes/expenseRoute.js';
 import savingRoute from './routes/savingRoute.js';
+import insightRoute from './routes/insightRoute.js';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use('/user',userRoute);
 app.use('/income', incomeRoute);
 app.use('/expense', expenseRoute);
 app.use('/saving',savingRoute);
+app.use('/insight', insightRoute);
 
 app.listen(port, ()=>{
     console.log(`Server listening on port ${port}`);
