@@ -2,7 +2,9 @@ import savingGoalProgress from "../../service/insights/savingGoalProgress.js";
 
 const savingGoalProgressController = async (req, res)=>{
     const userId = req.uid;
-    const {progressPercentage, amountNeededToHitSavingGoal, goalStatus, overspentAmount, surpassedAmount} = await savingGoalProgress(userId);
+    const totalIncomeAmount = req.totalIncomeAmount;
+    const totalExpenseAmount = req.totalExpenseAmount;
+    const {progressPercentage, amountNeededToHitSavingGoal, goalStatus, overspentAmount, surpassedAmount} = await savingGoalProgress(userId, totalIncomeAmount, totalExpenseAmount);
 
     switch(goalStatus){
         case "achieved":

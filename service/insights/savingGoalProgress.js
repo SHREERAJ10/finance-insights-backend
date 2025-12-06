@@ -1,119 +1,84 @@
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-const today = new Date();
-const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-const endDate = new Date(today.getFullYear(), today.getMonth()+1, 0);
-let progressPercentage = 0;
-let amountNeededToHitSavingGoal;
-const goalStates = {
-    achieved:"achieved",
-    surpassed:"surpassed",
-    regressing:"regressing",
-    noProgress:"noProgress"
-}
-let goalStatus;
 
-const savingGoalProgress = async (userId)=>{
+const savingGoalProgress = async (userId, totalIncomeAmount, totalExpenseAmount) => {
 
-    let totalIncomeAmount = 0;
-    let totalExpenseAmount =0;
+    let progressPercentage = 0;
+    let amountNeededToHitSavingGoal;
+    let goalStatus;
     let currSavingAmount;
-    let overspentAmount=0;
-    let surpassedAmount=0;
+    let overspentAmount = 0;
+    let surpassedAmount = 0;
+    const goalStates = {
+        achieved: "achieved",
+        surpassed: "surpassed",
+        regressing: "regressing",
+        noProgress: "noProgress"
+    }
+
+    console.log(totalIncomeAmount)
+    console.log(totalExpenseAmount)
+
+    const today = new Date();
+    const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
     const savingGoal = (await prisma.saving_Goal.findFirst({
-        where:{
+        where: {
             userId: userId,
-            createdAt:{
-                gte:startDate,
+            createdAt: {
+                gte: startDate,
                 lte: endDate
             }
         },
-        select:{
+        select: {
             savingGoalAmount: true
         }
     })).savingGoalAmount;
 
-    const incomeAmountRecords = await prisma.income_Data.findMany({
-        where:{
-            userId: userId,
-            createdAt:{
-                gte:startDate,
-                lte: endDate
-            }
-        },
-        select:{
-            incomeAmount: true
-        }
-    });
-
-    for(let record of incomeAmountRecords){
-        totalIncomeAmount+=record.incomeAmount;
-    }
-
-    const expenseAmountRecords = await prisma.expense_Data.findMany({
-        where:{
-            userId: userId,
-            createdAt:{
-                gte:startDate,
-                lte: endDate
-            }
-        },
-        select:{
-            expenseAmount: true
-        }
-    });
-
-    for(let record of expenseAmountRecords){
-        totalExpenseAmount+=record.expenseAmount;
-    }
-
     //progress percentage
 
-    if(totalIncomeAmount > totalExpenseAmount){
-        progressPercentage = ((incomeExpenseDifference/savingGoal) * 100).toFixed(2);
+    if (totalIncomeAmount > totalExpenseAmount) {
+        progressPercentage = (((totalIncomeAmount - totalExpenseAmount) / savingGoal) * 100).toFixed(2);
     }
-    else{
+    else {
         progressPercentage = 0;
     }
 
     //amount needed to hit saving goal
 
-    if(totalIncomeAmount > totalExpenseAmount){
+    if (totalIncomeAmount > totalExpenseAmount) {
         currSavingAmount = totalIncomeAmount - totalExpenseAmount;
-        if(currSavingAmount < savingGoal){
+        if (currSavingAmount < savingGoal) {
             amountNeededToHitSavingGoal = savingGoal - currSavingAmount;
         }
-        else if(currSavingAmount > savingGoal){
+        else if (currSavingAmount > savingGoal) {
             //already beyond saving goal i.e. very good!
             amountNeededToHitSavingGoal = 0;
             goalStatus = goalStates.surpassed;
             surpassedAmount = currSavingAmount - savingGoal;
         }
-        else{
+        else {
             //just hit saving goal, keep it up!
             amountNeededToHitSavingGoal = 0;
             goalStatus = goalStates.achieved;
         }
     }
-    else if(totalIncomeAmount < totalExpenseAmount){
+    else if (totalIncomeAmount < totalExpenseAmount) {
         //no saving, no progress, insight: cut down expenses
         overspentAmount = totalExpenseAmount - totalIncomeAmount;
         amountNeededToHitSavingGoal = savingGoal + overspentAmount;
         goalStatus = goalStates.regressing;
     }
-    else{
+    else {
         //incomeAmount == expenseAmount; lives paycheck to paycheck. increase income or cut down expenses.
         amountNeededToHitSavingGoal = savingGoal;
         goalStatus = goalStates.noProgress;
     }
 
-    console.log(totalIncomeAmount);
-    console.log(totalExpenseAmount);
-
-    return {progressPercentage:progressPercentage, amountNeededToHitSavingGoal:amountNeededToHitSavingGoal, goalStatus:goalStatus, overspentAmount:overspentAmount, surpassedAmount:surpassedAmount};
+    return { progressPercentage: progressPercentage, amountNeededToHitSavingGoal: amountNeededToHitSavingGoal, goalStatus: goalStatus, overspentAmount: overspentAmount, surpassedAmount: surpassedAmount };
 }
 
 export default savingGoalProgress;
