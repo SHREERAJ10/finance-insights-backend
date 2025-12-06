@@ -2,8 +2,9 @@ import incomeToExpenseRatio from "../../service/insights/incomeToExpenseRatio.js
 
 const incomeToExpenseRatioController = async (req, res)=>{
     try{
-        const userId = req.uid;
-        const ratio = await incomeToExpenseRatio(userId);
+        const totalIncomeAmount = req.totalIncomeAmount;
+        const totalExpenseAmount = req.totalExpenseAmount;
+        const ratio = await incomeToExpenseRatio(totalIncomeAmount, totalExpenseAmount);
         res.status(200).json({'success':true, 'incomeToExpenseRatio':ratio, 'insight':`For every dollar you earn, you spend $${ratio}` });
     }
     catch(err){
