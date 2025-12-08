@@ -18,9 +18,6 @@ const savingGoalProgress = async (userId, totalIncomeAmount, totalExpenseAmount)
         noProgress: "noProgress"
     }
 
-    console.log(totalIncomeAmount)
-    console.log(totalExpenseAmount)
-
     const today = new Date();
     const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
     const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);

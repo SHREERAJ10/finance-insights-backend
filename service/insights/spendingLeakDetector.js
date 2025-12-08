@@ -2,11 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const spendingLeakDetector = async (userId, expenseData, totalExpenseAmount) => {
-
-    const today = new Date();
-    const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+const spendingLeakDetector = async ( expenseData, totalExpenseAmount) => {
 
     const expenseDataByCategory = new Object();
     for (let data of expenseData) {
@@ -37,7 +33,6 @@ const spendingLeakDetector = async (userId, expenseData, totalExpenseAmount) => 
         expenseCategoryAndFixed.push(record);
     }
 
-
     //mixed data i.e. array of objects containing data for both fixed and non-fixed expenses
     const arr = expenseCategoryAndFixed.map((dataObj)=>{
         for(let data of expenseData){
@@ -53,7 +48,6 @@ const spendingLeakDetector = async (userId, expenseData, totalExpenseAmount) => 
         }
         return dataObj;
     });
-
     
     const fixedExpenseData = arr.filter(data=> data.isFixed == true);
     const nonFixedExpenseData = arr.filter(data=> data.isFixed == false);
