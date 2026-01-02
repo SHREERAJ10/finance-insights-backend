@@ -5,12 +5,14 @@ import addIncomeSourceController from '../controller/incomeController/addIncomeS
 import updateIncomeDataController from '../controller/incomeController/updateIncomeDataController.js';
 import updateIncomeSourceController from '../controller/incomeController/updateIncomeSourceController.js';
 import deleteIncomeDataController from '../controller/incomeController/deleteIncomeDataController.js';
+import getIncomeSourceController from '../controller/incomeController/getIncomeSourceController.js';
 
 const incomeRoute = express.Router();
 
 incomeRoute.post('/data',verifyToken, addIncomeDataController);
 incomeRoute.put('/data/:id',verifyToken, updateIncomeDataController);
 incomeRoute.post('/source',verifyToken, addIncomeSourceController);
+incomeRoute.get('/source',verifyToken, getIncomeSourceController);
 incomeRoute.put('/source/:id', verifyToken, updateIncomeSourceController);
 incomeRoute.delete('/data/:id',verifyToken, deleteIncomeDataController);
 
