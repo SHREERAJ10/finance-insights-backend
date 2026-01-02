@@ -6,6 +6,7 @@ import incomeRoute from './routes/incomeRoute.js';
 import expenseRoute from './routes/expenseRoute.js';
 import savingRoute from './routes/savingRoute.js';
 import insightRoute from './routes/insightRoute.js';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -14,6 +15,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+    origin:"http://localhost:5173"
+}))
 
 app.use('/user',userRoute);
 app.use('/income', incomeRoute);
