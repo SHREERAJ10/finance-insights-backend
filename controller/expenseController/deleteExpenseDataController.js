@@ -4,7 +4,7 @@ const deleteExpenseDataController = async (req, res)=>{
     try{
         const expenseId = req.params.id;
         await deleteExpenseData(expenseId);
-        res.status(200).json({'success':true,'message':'expense data deleted successfully!'});
+        res.status(200).json({'success':true,'message':'Expense data deleted successfully!'});
     }
     catch(err){
         console.log(err);

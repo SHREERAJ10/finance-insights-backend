@@ -2,3 +2,6 @@ node_modules
 ServiceAccountKey.json
 .env
 /generated/prisma
+controller/insightsController/paretoStatsController.js
+prisma/seed.js
+test.js

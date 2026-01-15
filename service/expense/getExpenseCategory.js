@@ -8,6 +8,7 @@ const getExpenseCategory = async (userId)=>{
         select:{
             id: true,
             expenseCategory: true,
+            isFixed:true
         },
         where:{
             userId:userId,

@@ -8,6 +8,7 @@ const getIncomeSource = async (userId)=>{
         select:{
             id: true,
             incomeSource: true,
+            isFixed:true
         },
         where:{
             userId:userId,

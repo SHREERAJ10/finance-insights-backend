@@ -172,11 +172,13 @@ const insightController = async (req, res) => {
       case insightType.paretoStats:
         return {
           insightType: "Pareto Stats",
-          insights: `${
-            insightData.insight.paretoPercentage
-          }% of categories (${insightData.insight.categoriesResponsible.join(
-            ", "
-          )}) account for 80% of your expenses — your strongest optimization targets.`,
+          insights: [
+            `${
+              insightData.insight.paretoPercentage
+            }% of categories (${insightData.insight.categoriesResponsible.join(
+              ", "
+            )}) account for 80% of your expenses — your strongest optimization targets.`,
+          ],
           subData: [
             {
               key: "categoriesResponsible",

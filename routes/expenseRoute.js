@@ -6,6 +6,8 @@ import updateExpenseDataController from '../controller/expenseController/updateE
 import updateExpenseCategoryController from '../controller/expenseController/updateExpenseCategoryController.js';
 import deleteExpenseDataController from '../controller/expenseController/deleteExpenseDataController.js';
 import getExpenseCategoryController from '../controller/expenseController/getExpenseCategoryController.js';
+import getExpenseDataController from '../controller/expenseController/getExpenseDataController.js';
+import deleteExpenseCategoryController from '../controller/expenseController/deleteExpenseCategoryController.js';
 
 const expenseRoute = express.Router();
 
@@ -14,6 +16,8 @@ expenseRoute.put('/data/:id',verifyToken, updateExpenseDataController);
 expenseRoute.post('/category', verifyToken, addExpenseCategoryController);
 expenseRoute.get('/category', verifyToken, getExpenseCategoryController);
 expenseRoute.put('/category/:id', verifyToken, updateExpenseCategoryController);
-expenseRoute.delete('/data/:id', verifyToken, deleteExpenseDataController)
+expenseRoute.delete('/category/:id', verifyToken, deleteExpenseCategoryController);
+expenseRoute.delete('/data/:id', verifyToken, deleteExpenseDataController);
+expenseRoute.get('/data', verifyToken, getExpenseDataController);
 
 export default expenseRoute;

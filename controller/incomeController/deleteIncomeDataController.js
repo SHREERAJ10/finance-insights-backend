@@ -4,7 +4,7 @@ const deleteIncomeDataController = async (req, res)=>{
     try{
         const incomeId = req.params.id;
         await deleteIncomeData(incomeId);
-        res.status(200).json({'success':true,'message':'income data deleted successfully!'});
+        res.status(200).json({'success':true,'message':'Income data deleted successfully!'});
     }
     catch(err){
         console.log(err);
