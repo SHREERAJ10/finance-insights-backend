@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin:"https://fynsight.vercel.app/"
+    origin:"https://fynsight.vercel.app"
 }))
 
 app.use('/user',userRoute);
