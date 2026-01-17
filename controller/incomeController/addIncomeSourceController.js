@@ -8,7 +8,6 @@ const addIncomeSourceController = async (req, res) => {
     const parsedIncomeSourceData = await incomeSourceSchema.parseAsync(
       req.body
     );
-    console.log(parsedIncomeSourceData);
     const { incomeSource, isFixed } = parsedIncomeSourceData;
     await addIncomeSource(userId, incomeSource, isFixed);
     res

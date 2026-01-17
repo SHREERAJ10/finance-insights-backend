@@ -5,7 +5,6 @@ import updateIncomeSource from "../../service/income/updateIncomeSource.js";
 const updateIncomeSourceController = async (req, res) => {
   try {
     const incomeSourceId = req.params.id;
-    console.log(incomeSourceId);
     const parsedUpdatedData = await incomeSourceSchema.parseAsync(req.body);
     const { incomeSource, isFixed } = parsedUpdatedData;
     await updateIncomeSource(incomeSourceId, incomeSource, isFixed);

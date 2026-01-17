@@ -4,4 +4,3 @@ ServiceAccountKey.json
 /generated/prisma
 controller/insightsController/paretoStatsController.js
 prisma/seed.js
-test.js

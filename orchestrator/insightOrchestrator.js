@@ -39,6 +39,8 @@ const insightOrchestrator = async (id, incomeData, expenseData, totalIncomeAmoun
         insight:fixedToVariableExpenseRatioData
     }
 
+
+
     returnData.push(incomeToExpenseRatioResponse, savingGoalProgressResponse, spendingLeakDetectorResponse, paretoStatsResponse, fixedToVariableExpenseRatioResponse );
 
     return returnData;
