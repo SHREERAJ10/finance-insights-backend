@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin:"http://localhost:5173"
+    origin:"https://fynsight.vercel.app/"
 }))
 
 app.use('/user',userRoute);
