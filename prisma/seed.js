@@ -2,8 +2,16 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// 🔴 Replace with your Firebase test user UID
 const USER_ID = process.env.FIREBASE_UID || "test-firebase-uid";
+
+await prisma.user.upsert({
+  where: { id: USER_ID },
+  update: {},
+  create: {
+    id: USER_ID,
+    username: "Peter Parker",
+  },
+});
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
