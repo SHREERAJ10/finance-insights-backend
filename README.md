@@ -6,6 +6,12 @@ This repository contains the backend of the application.
 
 Live demo: [Fynsights](https://fynsight.vercel.app/)
 
+### Test Account:
+
+Email: spiderman@gmail.com
+
+Password: spiderman
+
 ---
 
 ## What this backend does
